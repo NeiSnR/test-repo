@@ -29,12 +29,16 @@ export function CheckoutSummary({ plan, selectedPaymentMethod, selectedInstallme
         main: `R$ ${pixDiscount.toFixed(2).replace('.', ',')}`,
         sub: plan.pixDiscountPercentage > 0 
           ? `${plan.pixDiscountPercentage}% de desconto no PIX`
-          : 'à vista'
+          : plan.plan.includes('Consultoria Online - Mensal') || plan.plan.includes('Consultoria Online - Casal')
+            ? 'por mês'
+            : 'à vista'
       };
     } else {
       return {
         main: `R$ ${formattedTotal}`,
-        sub: 'à vista'
+        sub: plan.plan.includes('Consultoria Online - Mensal') || plan.plan.includes('Consultoria Online - Casal')
+          ? 'por mês'
+          : 'à vista'
       };
     }
   };
@@ -56,7 +60,7 @@ export function CheckoutSummary({ plan, selectedPaymentMethod, selectedInstallme
         />
         <div>
           <h3 className="font-semibold text-lg text-white">PRO Team</h3>
-          <p className="text-gray-400">{plan.name}</p>
+          <p className="text-gray-400">{plan.plan}</p>
         </div>
       </div>
 

@@ -106,11 +106,11 @@ export function PaymentMethods({
   };
 
   const getPaymentDisplay = () => {
-    if (selectedMethod === 'card' && selectedInstallments > 1) {
+    if (selectedMethod === 'card') {
       const installmentValue = discountedPrice / selectedInstallments;
       return {
         value: installmentValue,
-        text: `${selectedInstallments}x de R$ ${installmentValue.toFixed(2).replace('.', ',')}`
+        text: `R$ ${installmentValue.toFixed(2).replace('.', ',')}`
       };
     } else if (selectedMethod === 'pix') {
       const pixDiscount = discountedPrice * (1 - plan.pixDiscountPercentage / 100);
@@ -305,17 +305,17 @@ export function PaymentMethods({
 
       {selectedMethod && (
         <div className="flex items-center justify-between py-4 border-t border-gray-700">
-          <span className="text-sm sm:text-base text-gray-400">Total nesta cobrança:</span>
-          <div className="text-right">
-            <span className="text-base sm:text-lg font-medium text-white">
+          <span className="text-sm sm:text-base text-gray-400">Total devido hoje:</span>
+          <span className="text-right">
+            <span className="block text-base sm:text-lg font-medium text-white">
               {getPaymentDisplay().text}
             </span>
             {selectedMethod === 'pix' && plan.pixDiscountPercentage > 0 && (
-              <div className="text-sm text-green-500">
+              <span className="block text-sm text-green-500">
                 {plan.pixDiscountPercentage}% de desconto no PIX
-              </div>
+              </span>
             )}
-          </div>
+          </span>
         </div>
       )}
 

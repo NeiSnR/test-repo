@@ -1,9 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
-
-interface Coupon {
-  code: string;
-  discount: number;
-}
+import type { Coupon } from '../config/coupons';
+import { validCoupons } from '../config/coupons';
 
 interface CouponContextType {
   appliedCoupon: Coupon | null;
@@ -12,13 +9,6 @@ interface CouponContextType {
   clearCoupon: () => void;
   calculateDiscountedPrice: (price: number) => number;
 }
-
-const validCoupons: Record<string, number> = {
-  'teste90': 0.9,  // 90% discount
-  'teste10': 0.1,  // 10% discount
-  'teste100': 1, // 10% discount (keeping the existing one)
-  'desconto10': 0.1, // 10% discount (keeping the existing one)
-};
 
 const CouponContext = createContext<CouponContextType | undefined>(undefined);
 

@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  checkout:
+    image: neisn/checkout-frontend:latest
+    networks:
+      - traefik_public
+    deploy:
+      mode: replicated
+      replicas: 1
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.checkout.rule=Host(`checkout.proteam.com.br`)"
+        - "traefik.http.routers.checkout.entrypoints=websecure"
+        - "traefik.http.routers.checkout.tls.certresolver=le"
+        - "traefik.http.services.checkout.loadbalancer.server.port=80"
+      placement:
+        constraints:
+          - node.role == manager
+
+networks:
+  traefik_public:
+    external: true

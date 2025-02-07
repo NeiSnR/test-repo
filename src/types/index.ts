@@ -8,6 +8,7 @@ export interface UserData {
 export interface Plan {
   id: string;
   name: string;
+  plan: string;
   price: number;
   pixDiscountPercentage: number;
 }
